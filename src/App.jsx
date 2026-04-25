@@ -9,6 +9,9 @@ import Dashboard from './pages/Dashboard'
 import QuestionBank from './pages/QuestionBank'
 import MockInterview from './pages/MockInterview'
 import McqQuiz from './pages/McqQuiz'
+import StudyPlan from './pages/StudyPlan'
+import Progress from './pages/Progress'
+import Settings from './pages/Settings'
 import DashboardLayout from './components/DashboardLayout'
 
 function App() {
@@ -75,12 +78,15 @@ function App() {
 
     // Dashboard views (With Sidebar)
     return (
-      <DashboardLayout navigate={navigate} activeView={currentView}>
+      <DashboardLayout navigate={navigate} activeView={currentView} session={session}>
         {(() => {
           switch (currentView) {
             case 'question-bank': return <QuestionBank navigate={navigate} />
             case 'mock-interview': return <MockInterview navigate={navigate} />
             case 'mcq-quiz': return <McqQuiz />
+            case 'study-plan': return <StudyPlan session={session} />
+            case 'progress': return <Progress session={session} />
+            case 'settings': return <Settings navigate={navigate} session={session} />
             case 'dashboard':
             default: return <Dashboard navigate={navigate} session={session} />
           }

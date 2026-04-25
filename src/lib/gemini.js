@@ -1,5 +1,5 @@
-const GEMINI_API_KEY = "AIzaSyBEP7XgBCKkjv54ghwavZLnBb6tzf5dJ9A";
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+const GEMINI_API_KEY = "AIzaSyCfUKKzHI-9dWNWXnjDECzsEyAVymWaM14";
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-04-17:generateContent?key=${GEMINI_API_KEY}`;
 
 // Generic text generation
 export const generateInterviewContent = async (prompt) => {
