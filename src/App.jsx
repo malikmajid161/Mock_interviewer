@@ -8,7 +8,10 @@ import Profile from './pages/Profile'
 import Dashboard from './pages/Dashboard'
 
 function App() {
-  const [currentView, setCurrentView] = useState('landing')
+  const [currentView, setCurrentView] = useState(() => {
+    const hash = window.location.hash.replace('#', '')
+    return hash || 'landing'
+  })
   const [session, setSession] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -18,6 +21,9 @@ function App() {
       setSession(session)
       if (session) {
         setCurrentView('dashboard')
+      } else {
+        const hash = window.location.hash.replace('#', '')
+        if (hash) setCurrentView(hash)
       }
       setLoading(false)
     })
@@ -37,6 +43,7 @@ function App() {
 
   const navigate = (view) => {
     setCurrentView(view)
+    window.location.hash = view
     window.scrollTo(0, 0)
   }
 

@@ -63,15 +63,16 @@ const SignUp = ({ navigate }) => {
     <div className="signup-page" style={{ height: '100vh', display: 'flex', overflow: 'hidden' }}>
       {/* Left Panel */}
       <div className="left-panel" style={{ 
-        flex: '0 0 50%', 
-        background: 'var(--navy)', 
+        width: '50%',
+        background: 'linear-gradient(145deg, #0a1423 0%, #1a2d47 100%)', 
         color: 'white', 
         padding: '64px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        borderRight: '1px solid rgba(255,255,255,0.05)'
       }}>
         <div>
           <div className="logo" style={{ fontSize: '24px', fontWeight: 600, marginBottom: '64px' }}>Interview Forge</div>
@@ -137,7 +138,7 @@ const SignUp = ({ navigate }) => {
 
       {/* Right Panel */}
       <div className="right-panel" style={{ 
-        flex: '0 0 50%', 
+        width: '50%', 
         background: 'white', 
         padding: '64px', 
         overflowY: 'auto',
