@@ -40,10 +40,10 @@ const SignIn = ({ navigate }) => {
     <div className="signin-page" style={{ height: '100vh', display: 'flex', overflow: 'hidden' }}>
       {/* Left Panel */}
       <div className="left-panel" style={{ 
-        flex: '0 0 42%', 
+        flex: '0 0 50%', 
         background: 'var(--navy)', 
         color: 'white', 
-        padding: '48px',
+        padding: '64px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between'
@@ -56,8 +56,8 @@ const SignIn = ({ navigate }) => {
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.6)', marginBottom: '48px' }}>Your questions are waiting.</p>
           
-          <div className="avatar-strip" style={{ overflow: 'hidden', position: 'relative', marginBottom: '48px', padding: '10px 0' }}>
-             <div style={{ display: 'flex', gap: '16px', animation: 'scrollLeft 35s linear infinite' }}>
+          <div className="avatar-strip" style={{ overflow: 'hidden', position: 'relative', marginBottom: '48px', padding: '24px 0' }}>
+             <div style={{ display: 'flex', gap: '20px', animation: 'scrollLeft 40s linear infinite' }}>
                 {[
                   { name: 'Arjun', role: 'SWE', color: '#6c63ff' },
                   { name: 'Sarah', role: 'PM', color: '#18b89a' },
@@ -70,37 +70,13 @@ const SignIn = ({ navigate }) => {
                   { name: 'Chen', role: 'ML', color: '#6c63ff' },
                   { name: 'Zara', role: 'DS', color: '#18b89a' }
                 ].map((candidate, i) => (
-                  <div key={i} style={{ 
-                    minWidth: '100px', 
-                    height: '120px', 
-                    background: 'rgba(255,255,255,0.05)', 
-                    border: '1.5px solid rgba(255,255,255,0.1)',
-                    borderRadius: '16px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '12px',
-                    position: 'relative',
-                    backdropFilter: 'blur(8px)',
-                    flexShrink: 0
-                  }}>
-                    <div style={{ 
-                      width: '48px', 
-                      height: '48px', 
-                      borderRadius: '50%', 
-                      background: `linear-gradient(135deg, ${candidate.color}, #ffffff33)`,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '18px',
-                      fontWeight: 600,
-                      color: 'white',
-                      boxShadow: `0 4px 12px ${candidate.color}44`
+                  <div key={i} className="candidate-card">
+                    <div className="candidate-avatar" style={{ 
+                      background: `linear-gradient(135deg, ${candidate.color}, ${candidate.color}88)`
                     }}>
                       {candidate.name[0]}
                     </div>
-                    <div style={{ fontSize: '11px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', letterSpacing: '0.05em' }}>
+                    <div className="candidate-role">
                       {candidate.role}
                     </div>
                   </div>
@@ -117,7 +93,7 @@ const SignIn = ({ navigate }) => {
       </div>
 
       {/* Right Panel */}
-      <div className="right-panel" style={{ flex: '1', background: 'white', padding: '64px', display: 'flex', alignItems: 'center' }}>
+      <div className="right-panel" style={{ flex: '0 0 50%', background: 'white', padding: '64px', display: 'flex', alignItems: 'center' }}>
         <div style={{ maxWidth: '400px', margin: '0 auto', width: '100%' }}>
           <h2 style={{ fontSize: '24px', fontWeight: 600, marginBottom: '8px' }}>Sign In</h2>
           <p style={{ color: 'var(--text-secondary)', marginBottom: '40px' }}>

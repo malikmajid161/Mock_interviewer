@@ -149,36 +149,83 @@ const Landing = ({ navigate }) => {
         </div>
       </section>
 
-      {/* Footer Simplified for now */}
-      <footer style={{ background: 'var(--navy)', color: 'white', padding: '64px 0', textAlign: 'center' }}>
+      {/* Section 8: CTA Banner */}
+      <section style={{ padding: '96px 0', background: 'linear-gradient(135deg, var(--navy), var(--navy-mid))', textAlign: 'center', color: 'white' }}>
         <div className="container">
-          <h2 style={{ color: 'white', marginBottom: '24px' }}>Ready to get started?</h2>
-          <button className="btn-primary" onClick={() => navigate('signup')} style={{ marginBottom: '40px' }}>Create Your Free Account</button>
-          
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', overflow: 'hidden', padding: '10px 0', opacity: 0.8 }}>
-             {[
-               { name: 'A', role: 'SWE', color: '#6c63ff' },
-               { name: 'S', role: 'PM', color: '#18b89a' },
-               { name: 'K', role: 'ML', color: '#ff6b6b' },
-               { name: 'E', role: 'UX', color: '#f59e0b' },
-               { name: 'O', role: 'DS', color: '#6c63ff' }
-             ].map((c, i) => (
-               <div key={i} style={{ 
-                 width: '60px', 
-                 height: '70px', 
-                 background: 'rgba(255,255,255,0.1)', 
-                 borderRadius: '12px',
-                 display: 'flex',
-                 flexDirection: 'column',
-                 alignItems: 'center',
-                 justifyContent: 'center',
-                 gap: '8px',
-                 border: '1px solid rgba(255,255,255,0.1)'
-               }}>
-                 <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: c.color, fontSize: '12px', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{c.name}</div>
-                 <div style={{ fontSize: '9px', fontWeight: 600, color: 'rgba(255,255,255,0.5)' }}>{c.role}</div>
-               </div>
-             ))}
+          <div className="badge badge-teal" style={{ marginBottom: '24px' }}>FREE TO START</div>
+          <h2 style={{ color: 'white', marginBottom: '32px' }}>Your next interview is coming. Are you ready?</h2>
+          <button className="btn-primary" onClick={() => navigate('signup')} style={{ padding: '16px 32px' }}>
+            Start Practicing Free <ArrowRight size={20} style={{ marginLeft: '12px' }} />
+          </button>
+        </div>
+      </section>
+
+      {/* Section 9: Footer */}
+      <footer style={{ background: 'var(--warm-white)', borderTop: '1px solid var(--border-light)', padding: '96px 0 48px 0' }}>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr 1fr 1fr', gap: '48px', marginBottom: '64px' }}>
+            <div>
+              <div style={{ fontSize: '20px', fontWeight: 600, color: 'var(--navy)', marginBottom: '24px' }}>Interview Forge</div>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.6, marginBottom: '24px' }}>
+                The world's most advanced AI interview preparation platform. Trusted by candidates from top tech companies.
+              </p>
+              <div style={{ display: 'flex', gap: '16px' }}>
+                <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'var(--border-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>𝕏</div>
+                <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'var(--border-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>in</div>
+                <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'var(--border-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>📸</div>
+              </div>
+            </div>
+            
+            <div>
+              <div style={{ fontWeight: 600, fontSize: '14px', color: 'var(--navy)', marginBottom: '24px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Product</div>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '14px', color: 'var(--text-secondary)' }}>
+                <li style={{ cursor: 'pointer' }}>Question Bank</li>
+                <li style={{ cursor: 'pointer' }}>Mock Interviews</li>
+                <li style={{ cursor: 'pointer' }}>AI Answer Coach</li>
+                <li style={{ cursor: 'pointer' }}>Pricing</li>
+              </ul>
+            </div>
+
+            <div>
+              <div style={{ fontWeight: 600, fontSize: '14px', color: 'var(--navy)', marginBottom: '24px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Resources</div>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '14px', color: 'var(--text-secondary)' }}>
+                <li style={{ cursor: 'pointer' }}>Blog</li>
+                <li style={{ cursor: 'pointer' }}>Success Stories</li>
+                <li style={{ cursor: 'pointer' }}>Interview Tips</li>
+                <li style={{ cursor: 'pointer' }}>FAQ</li>
+              </ul>
+            </div>
+
+            <div>
+              <div style={{ fontWeight: 600, fontSize: '14px', color: 'var(--navy)', marginBottom: '24px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Company</div>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '14px', color: 'var(--text-secondary)' }}>
+                <li style={{ cursor: 'pointer' }}>About Us</li>
+                <li style={{ cursor: 'pointer' }}>Careers</li>
+                <li style={{ cursor: 'pointer' }}>Contact</li>
+                <li style={{ cursor: 'pointer' }}>Partner Program</li>
+              </ul>
+            </div>
+
+            <div>
+              <div style={{ fontWeight: 600, fontSize: '14px', color: 'var(--navy)', marginBottom: '24px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Legal</div>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '14px', color: 'var(--text-secondary)' }}>
+                <li style={{ cursor: 'pointer' }}>Privacy Policy</li>
+                <li style={{ cursor: 'pointer' }}>Terms of Service</li>
+                <li style={{ cursor: 'pointer' }}>Cookie Policy</li>
+                <li style={{ cursor: 'pointer' }}>Security</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style={{ paddingTop: '32px', borderTop: '1px solid var(--border-light)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
+              © 2026 Interview Forge. All rights reserved. Built with ❤️ for candidates everywhere.
+            </div>
+            <div style={{ display: 'flex', gap: '24px', fontSize: '13px', color: 'var(--text-muted)' }}>
+              <span>Privacy</span>
+              <span>Terms</span>
+              <span>Cookies</span>
+            </div>
           </div>
         </div>
       </footer>

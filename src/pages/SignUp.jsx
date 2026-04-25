@@ -63,13 +63,15 @@ const SignUp = ({ navigate }) => {
     <div className="signup-page" style={{ height: '100vh', display: 'flex', overflow: 'hidden' }}>
       {/* Left Panel */}
       <div className="left-panel" style={{ 
-        flex: '0 0 42%', 
+        flex: '0 0 50%', 
         background: 'var(--navy)', 
         color: 'white', 
-        padding: '48px',
+        padding: '64px',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        position: 'relative',
+        overflow: 'hidden'
       }}>
         <div>
           <div className="logo" style={{ fontSize: '24px', fontWeight: 600, marginBottom: '64px' }}>Interview Forge</div>
@@ -94,8 +96,8 @@ const SignUp = ({ navigate }) => {
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.6)', marginBottom: '48px' }}>Join candidates preparing smarter every day.</p>
           
-          <div className="avatar-strip" style={{ overflow: 'hidden', position: 'relative', marginBottom: '48px', padding: '10px 0' }}>
-             <div style={{ display: 'flex', gap: '16px', animation: 'scrollLeft 35s linear infinite' }}>
+          <div className="avatar-strip" style={{ overflow: 'hidden', position: 'relative', marginBottom: '48px', padding: '24px 0' }}>
+             <div style={{ display: 'flex', gap: '20px', animation: 'scrollLeft 40s linear infinite' }}>
                 {[
                   { name: 'Arjun', role: 'SWE', color: '#6c63ff' },
                   { name: 'Sarah', role: 'PM', color: '#18b89a' },
@@ -108,49 +110,17 @@ const SignUp = ({ navigate }) => {
                   { name: 'Chen', role: 'ML', color: '#6c63ff' },
                   { name: 'Zara', role: 'DS', color: '#18b89a' }
                 ].map((candidate, i) => (
-                  <div key={i} style={{ 
-                    minWidth: '100px', 
-                    height: '120px', 
-                    background: 'rgba(255,255,255,0.05)', 
-                    border: '1.5px solid rgba(255,255,255,0.1)',
-                    borderRadius: '16px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '12px',
-                    position: 'relative',
-                    backdropFilter: 'blur(8px)',
-                    flexShrink: 0,
-                    transition: 'transform 0.3s ease'
-                  }}>
-                    <div style={{ 
-                      width: '48px', 
-                      height: '48px', 
-                      borderRadius: '50%', 
-                      background: `linear-gradient(135deg, ${candidate.color}, #ffffff33)`,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '18px',
-                      fontWeight: 600,
-                      color: 'white',
-                      boxShadow: `0 4px 12px ${candidate.color}44`
+                  <div key={i} className="candidate-card">
+                    <div className="candidate-avatar" style={{ 
+                      background: `linear-gradient(135deg, ${candidate.color}, ${candidate.color}88)`,
+                      boxShadow: `0 8px 16px ${candidate.color}33`
                     }}>
                       {candidate.name[0]}
                     </div>
-                    <div style={{ fontSize: '11px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', letterSpacing: '0.05em' }}>
+                    <div className="candidate-role">
                       {candidate.role}
                     </div>
-                    <div style={{ 
-                      position: 'absolute', 
-                      top: '8px', 
-                      right: '8px', 
-                      width: '6px', 
-                      height: '6px', 
-                      borderRadius: '50%', 
-                      background: 'var(--teal)' 
-                    }} />
+                    <div className="candidate-status" />
                   </div>
                 ))}
              </div>
@@ -166,7 +136,7 @@ const SignUp = ({ navigate }) => {
       </div>
 
       {/* Right Panel */}
-      <div className="right-panel" style={{ flex: '1', background: 'white', padding: '64px', overflowY: 'auto' }}>
+      <div className="right-panel" style={{ flex: '0 0 50%', background: 'white', padding: '64px', overflowY: 'auto' }}>
         <div style={{ maxWidth: '480px', margin: '0 auto' }}>
           <h2 style={{ fontSize: '24px', fontWeight: 600, marginBottom: '8px' }}>Create Your Account</h2>
           <p style={{ color: 'var(--text-secondary)', marginBottom: '40px' }}>
