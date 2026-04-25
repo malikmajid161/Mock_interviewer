@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Search, Filter, Bookmark, ChevronRight, MessageSquare, Sparkles, Loader2 } from 'lucide-react'
-import { generateInterviewContent } from '../lib/gemini'
+import { generateQuestions } from '../lib/gemini'
 import { supabase } from '../lib/supabase'
 
 const QuestionBank = () => {
@@ -10,29 +10,21 @@ const QuestionBank = () => {
   const [loading, setLoading] = useState(false)
   const [activeCategory, setActiveCategory] = useState('All')
   const [expandedId, setExpandedId] = useState(null)
+  const [error, setError] = useState(null)
 
   const categories = ['All', 'Behavioral', 'Technical', 'System Design', 'HR', 'Product']
   const levels = ['Entry', 'Mid', 'Senior', 'Expert']
 
-  const generateQuestions = async () => {
+  const generateQuestionsHandler = async () => {
     if (!role.trim()) {
       alert('Please enter a job role first (e.g. Frontend Developer)')
       return
     }
     setLoading(true)
+    setError(null)
     
-    const prompt = `Generate 10 professional interview questions for a ${level} level ${role}. 
-    Return ONLY a JSON array of objects with these keys: 
-    "question": "string", 
-    "category": "Behavioral/Technical/System Design/HR/Product", 
-    "difficulty": "Easy/Medium/Hard", 
-    "tips": "one sentence advice".
-    No markdown, just raw JSON.`
-
     try {
-      const result = await generateInterviewContent(prompt)
-      const jsonString = result.replace(/```json|```/g, '').trim()
-      const parsed = JSON.parse(jsonString)
+      const parsed = await generateQuestions(role, level)
       setQuestions(parsed)
 
       // Save session to Supabase
@@ -45,9 +37,9 @@ const QuestionBank = () => {
           questions_practiced: parsed.length
         })
       }
-    } catch (error) {
-      console.error("Failed to generate questions:", error)
-      alert("AI was unable to generate questions. Please try again.")
+    } catch (err) {
+      console.error(err)
+      setError(`Generation failed: ${err.message}. Please try again.`)
     } finally {
       setLoading(false)
     }
@@ -75,7 +67,7 @@ const QuestionBank = () => {
                 placeholder="e.g. Software Engineer, Product Manager..." 
                 className="input-field"
                 style={{ paddingLeft: '48px' }}
-                onKeyDown={(e) => e.key === 'Enter' && generateQuestions()}
+                onKeyDown={(e) => e.key === 'Enter' && generateQuestionsHandler()}
               />
             </div>
           </div>
@@ -108,7 +100,7 @@ const QuestionBank = () => {
 
           <button 
             className="btn-primary" 
-            onClick={generateQuestions} 
+            onClick={generateQuestionsHandler} 
             disabled={loading}
             style={{ alignSelf: 'flex-end', height: '48px', padding: '0 32px', gap: '8px', background: 'linear-gradient(135deg, var(--teal), var(--accent-purple))' }}
           >
@@ -117,6 +109,12 @@ const QuestionBank = () => {
           </button>
         </div>
       </header>
+
+      {error && (
+        <div style={{ padding: '16px 24px', background: '#fef2f2', border: '1.5px solid var(--error)', borderRadius: '12px', color: 'var(--error)', marginBottom: '24px', fontSize: '14px' }}>
+          ⚠️ {error}
+        </div>
+      )}
 
       {questions.length > 0 && (
         <>

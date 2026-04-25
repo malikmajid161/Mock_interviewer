@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Sparkles, CheckCircle2, XCircle, ArrowRight, RefreshCw, Loader2, Award } from 'lucide-react'
-import { generateInterviewContent } from '../lib/gemini'
+import { generateMCQs } from '../lib/gemini'
 import { supabase } from '../lib/supabase'
 
 const McqQuiz = () => {
@@ -20,23 +20,13 @@ const McqQuiz = () => {
     }
     setScreen('loading')
     
-    const prompt = `Generate 10 multiple choice questions for a ${level} level ${role} interview. 
-    Return ONLY a JSON array of objects with: 
-    "question": "string",
-    "options": ["A", "B", "C", "D"],
-    "correctIndex": 0-3,
-    "explanation": "why this is correct".
-    No markdown, just raw JSON.`
-
     try {
-      const result = await generateInterviewContent(prompt)
-      const jsonString = result.replace(/```json|```/g, '').trim()
-      const parsed = JSON.parse(jsonString)
+      const parsed = await generateMCQs(role, level)
       setQuestions(parsed)
       setScreen('quiz')
     } catch (error) {
       console.error("Quiz Generation Error:", error)
-      alert("Failed to generate quiz. Try a different role.")
+      alert(`Failed to generate quiz: ${error.message}. Try a different role.`)
       setScreen('setup')
     }
   }
