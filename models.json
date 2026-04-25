@@ -1,0 +1,22 @@
+{
+  "models": [
+    {
+      "id": "gemini-3.1-flash",
+      "name": "Gemini 3.1 Flash",
+      "description": "Latest stable high-performance model (April 2026). Optimized for speed and complex reasoning.",
+      "default": true
+    },
+    {
+      "id": "gemini-3.1-flash-lite",
+      "name": "Gemini 3.1 Flash Lite",
+      "description": "Optimized for extreme low latency.",
+      "default": false
+    },
+    {
+      "id": "gemini-3-flash",
+      "name": "Gemini 3 Flash",
+      "description": "Standard frontier model.",
+      "default": false
+    }
+  ]
+}

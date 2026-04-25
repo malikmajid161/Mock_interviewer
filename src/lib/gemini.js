@@ -1,32 +1,21 @@
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-// Updated model to gemini-1.5-flash-latest for production stability
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
+const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+
+// Dynamically use the model from environment variables with a fallback
+const MODEL_NAME = import.meta.env.VITE_MODEL_NAME || 'gemini-3.1-flash';
+const model = genAI.getGenerativeModel({ model: MODEL_NAME });
 
 // Generic text generation
 export const generateInterviewContent = async (prompt) => {
   try {
-    const response = await fetch(GEMINI_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 4096,
-        }
-      })
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData?.error?.message || `HTTP ${response.status}`);
-    }
-
-    const data = await response.json();
-    return data.candidates[0].content.parts[0].text;
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    return response.text();
   } catch (error) {
-    console.error("Gemini API Error:", error);
-    throw error; // re-throw so callers can handle it
+    console.error("Gemini SDK Error:", error);
+    throw error;
   }
 };
 
@@ -41,8 +30,12 @@ export const parseJsonFromAI = (text) => {
   // Try to extract just the JSON array or object
   const start = cleaned.indexOf('[') !== -1 ? cleaned.indexOf('[') : cleaned.indexOf('{');
   const end = cleaned.lastIndexOf(']') !== -1 ? cleaned.lastIndexOf(']') + 1 : cleaned.lastIndexOf('}') + 1;
-  const jsonSlice = cleaned.slice(start, end);
+  
+  if (start === -1 || end === -1) {
+    throw new Error("Could not find valid JSON in AI response");
+  }
 
+  const jsonSlice = cleaned.slice(start, end);
   return JSON.parse(jsonSlice);
 };
 
