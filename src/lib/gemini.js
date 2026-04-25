@@ -1,21 +1,56 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 
-// Dynamically use the model from environment variables with a fallback
-const MODEL_NAME = import.meta.env.VITE_MODEL_NAME || 'gemini-3.1-flash';
-const model = genAI.getGenerativeModel({ model: MODEL_NAME });
+// Default models
+const GEMINI_MODEL = import.meta.env.VITE_MODEL_NAME || 'gemini-flash-latest';
+const GROQ_MODEL = import.meta.env.VITE_GROQ_MODEL || 'llama3-70b-8192';
 
-// Generic text generation
+const model = genAI.getGenerativeModel({ model: GEMINI_MODEL });
+
+// Fallback to Groq if Gemini fails
+const generateWithGroq = async (prompt) => {
+  if (!GROQ_API_KEY) throw new Error("Groq API key not found");
+
+  const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${GROQ_API_KEY}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      model: GROQ_MODEL,
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.7
+    })
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(`Groq API Error: ${error.error?.message || response.statusText}`);
+  }
+
+  const data = await response.json();
+  return data.choices[0].message.content;
+};
+
+// Generic text generation with fallback
 export const generateInterviewContent = async (prompt) => {
   try {
+    // Try Gemini first
     const result = await model.generateContent(prompt);
     const response = await result.response;
     return response.text();
-  } catch (error) {
-    console.error("Gemini SDK Error:", error);
-    throw error;
+  } catch (geminiError) {
+    console.warn("Gemini failed, trying Groq fallback...", geminiError);
+    try {
+      return await generateWithGroq(prompt);
+    } catch (groqError) {
+      console.error("All AI providers failed:", { geminiError, groqError });
+      throw new Error("AI service is currently unavailable. Please check your API keys.");
+    }
   }
 };
 
