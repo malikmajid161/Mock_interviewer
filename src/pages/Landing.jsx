@@ -202,8 +202,8 @@ const Landing = ({ navigate }) => {
             <div>
               <div style={{ fontWeight: 600, fontSize: '14px', color: 'var(--navy)', marginBottom: '24px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Product</div>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '14px', color: 'var(--text-secondary)' }}>
-                <li style={{ cursor: 'pointer' }} onClick={() => navigate('landing')}>Question Bank</li>
-                <li style={{ cursor: 'pointer' }} onClick={() => navigate('landing')}>Mock Interviews</li>
+                <li style={{ cursor: 'pointer' }} onClick={() => navigate('question-bank')}>Question Bank</li>
+                <li style={{ cursor: 'pointer' }} onClick={() => navigate('mock-interview')}>Mock Interviews</li>
                 <li style={{ cursor: 'pointer' }} onClick={() => navigate('landing')}>AI Answer Coach</li>
                 <li style={{ cursor: 'pointer' }} onClick={() => navigate('landing')}>Pricing</li>
               </ul>
