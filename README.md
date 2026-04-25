@@ -1,6 +1,6 @@
 # Interview Forge 🚀
 
-**Interview Forge** is a premium, AI-powered interview preparation platform designed to help candidates land their dream jobs. By leveraging Gemini AI and Supabase, it provides personalized question banks, interactive quizzes, and structured study plans.
+**Interview Forge** is a premium, AI-powered interview preparation platform designed to help candidates land their dream jobs. By leveraging **Groq LPU™ technology** and Supabase, it provides personalized question banks, interactive quizzes, and structured study plans with blazing-fast inference speeds.
 
 ![Interview Forge](https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=2070)
 
@@ -11,14 +11,14 @@
 - **📅 AI Study Plan**: Get a personalized, week-by-week learning schedule tailored to your target role.
 - **📊 Progress Tracking**: Monitor your performance, view your session history, and see your accuracy improve over time.
 - **🔐 Secure Auth**: Complete authentication system powered by Supabase with OTP verification.
-- **🎨 Premium UI**: A modern, responsive design built with React, Lucide Icons, and custom CSS.
+- **🎨 Premium UI**: A modern, responsive design built with React 19, Lucide Icons, and custom CSS.
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: React (Vite)
+- **Frontend**: React 19 (Vite 8)
 - **Styling**: Vanilla CSS (Premium Custom Design)
 - **Backend/DB**: Supabase
-- **AI Engine**: Gemini 2.5 Flash Preview
+- **AI Engine**: Groq (Llama 3 70B)
 - **Icons**: Lucide React
 - **Deployment**: Vercel / Railway
 
@@ -38,7 +38,8 @@ npm install
 ### 3. Set up Environment Variables
 Create a `.env.local` file in the root directory and add the following:
 ```env
-VITE_GEMINI_API_KEY=your_gemini_api_key
+VITE_GROQ_API_KEY=your_groq_api_key
+VITE_GROQ_MODEL=llama3-70b-8192
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
@@ -61,11 +62,6 @@ npm run dev
 2. Connect your repo to [Vercel](https://vercel.com).
 3. Add the environment variables from `.env.local` to the Vercel project settings.
 4. Deploy!
-
-### Railway
-1. Create a new project on [Railway](https://railway.app).
-2. Connect your GitHub repo.
-3. Railway will use the `railway.toml` and `server.js` included in the project to build and serve the app.
 
 ## 📄 License
 

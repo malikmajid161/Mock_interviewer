@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Calendar, CheckCircle2, Circle, Sparkles, Loader2, Lock } from 'lucide-react'
-import { generateInterviewContent, parseJsonFromAI } from '../lib/gemini'
+import { generateInterviewContent, parseJsonFromAI } from '../lib/ai'
 import { supabase } from '../lib/supabase'
 
 const StudyPlan = ({ session }) => {

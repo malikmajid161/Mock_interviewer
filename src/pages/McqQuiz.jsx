@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Sparkles, CheckCircle2, XCircle, ArrowRight, RefreshCw, Loader2, Award } from 'lucide-react'
-import { generateMCQs } from '../lib/gemini'
+import { generateMCQs } from '../lib/ai'
 import { supabase } from '../lib/supabase'
 
 const McqQuiz = () => {

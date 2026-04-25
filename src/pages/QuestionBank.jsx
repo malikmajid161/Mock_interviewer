@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Search, Filter, Bookmark, ChevronRight, MessageSquare, Sparkles, Loader2 } from 'lucide-react'
-import { generateQuestions } from '../lib/gemini'
+import { generateQuestions } from '../lib/ai'
 import { supabase } from '../lib/supabase'
 
 const QuestionBank = () => {
