@@ -1,4 +1,5 @@
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+// Updated model to gemini-1.5-flash-latest for production stability
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
 
 // Generic text generation
