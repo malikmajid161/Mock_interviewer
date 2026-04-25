@@ -38,7 +38,17 @@ Return ONLY a valid JSON object, no markdown:
 
     try {
       const text = await generateInterviewContent(prompt)
-      const parsed = parseJsonFromAI(text)
+      let parsed = parseJsonFromAI(text)
+      
+      // Defensive fallback if AI hallucinates and returns an array of weeks directly
+      if (Array.isArray(parsed)) {
+        parsed = {
+          title: `Study Plan for ${role}`,
+          totalWeeks: parsed.length || weeks,
+          weeks: parsed
+        }
+      }
+      
       setPlan(parsed)
     } catch (err) {
       alert(`Failed to generate plan: ${err.message}`)
