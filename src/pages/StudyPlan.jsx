@@ -16,21 +16,25 @@ const StudyPlan = ({ session }) => {
       return
     }
     setLoading(true)
-    const prompt = `Create a ${weeks}-week interview study plan for a ${role} candidate.
-Return ONLY a valid JSON object, no markdown:
+    const prompt = `Create a detailed ${weeks}-week interview study plan for a ${role} candidate.
+Provide a unique, highly customized plan specifically tailored to the skills and knowledge needed for a ${role}. 
+Do NOT just copy the example below. The example is ONLY to show you the required JSON structure.
+Generate a full plan for all ${weeks} weeks, with 5 days of tasks per week.
+
+Return ONLY a valid JSON object, no markdown formatting. Use this exact schema:
 {
   "title": "Study Plan for ${role}",
   "totalWeeks": ${weeks},
   "weeks": [
     {
       "weekNumber": 1,
-      "theme": "Foundations",
+      "theme": "<Week's Focus Theme>",
       "days": [
-        { "day": "Monday", "task": "Review Big O notation", "type": "Technical", "duration": "1h" },
-        { "day": "Tuesday", "task": "Practice STAR method stories", "type": "Behavioral", "duration": "45m" },
-        { "day": "Wednesday", "task": "Solve 2 LeetCode Easy problems", "type": "Coding", "duration": "1.5h" },
-        { "day": "Thursday", "task": "System Design basics", "type": "System Design", "duration": "1h" },
-        { "day": "Friday", "task": "Mock interview simulation", "type": "Practice", "duration": "1h" }
+        { "day": "Monday", "task": "<specific task for ${role}>", "type": "Technical", "duration": "1h" },
+        { "day": "Tuesday", "task": "<specific task for ${role}>", "type": "Behavioral", "duration": "45m" },
+        { "day": "Wednesday", "task": "<specific task for ${role}>", "type": "Coding", "duration": "1.5h" },
+        { "day": "Thursday", "task": "<specific task for ${role}>", "type": "System Design", "duration": "1h" },
+        { "day": "Friday", "task": "<mock interview focus>", "type": "Practice", "duration": "1h" }
       ]
     }
   ]
