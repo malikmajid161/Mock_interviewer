@@ -56,10 +56,54 @@ const SignIn = ({ navigate }) => {
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.6)', marginBottom: '48px' }}>Your questions are waiting.</p>
           
-          <div className="avatar-strip" style={{ overflow: 'hidden', position: 'relative', marginBottom: '32px' }}>
-             <div style={{ display: 'flex', gap: '8px', animation: 'scrollLeft 35s linear infinite' }}>
-                {[...Array(10)].map((_, i) => (
-                  <div key={i} style={{ width: '48px', height: '48px', borderRadius: '50%', background: `hsl(${i * 36}, 60%, 50%)`, border: '3px solid white', flexShrink: 0 }} />
+          <div className="avatar-strip" style={{ overflow: 'hidden', position: 'relative', marginBottom: '48px', padding: '10px 0' }}>
+             <div style={{ display: 'flex', gap: '16px', animation: 'scrollLeft 35s linear infinite' }}>
+                {[
+                  { name: 'Arjun', role: 'SWE', color: '#6c63ff' },
+                  { name: 'Sarah', role: 'PM', color: '#18b89a' },
+                  { name: 'Kenji', role: 'ML', color: '#ff6b6b' },
+                  { name: 'Elena', role: 'UX', color: '#f59e0b' },
+                  { name: 'Omar', role: 'DS', color: '#6c63ff' },
+                  { name: 'Lia', role: 'SWE', color: '#18b89a' },
+                  { name: 'Marcus', role: 'PM', color: '#ff6b6b' },
+                  { name: 'Sofia', role: 'UX', color: '#f59e0b' },
+                  { name: 'Chen', role: 'ML', color: '#6c63ff' },
+                  { name: 'Zara', role: 'DS', color: '#18b89a' }
+                ].map((candidate, i) => (
+                  <div key={i} style={{ 
+                    minWidth: '100px', 
+                    height: '120px', 
+                    background: 'rgba(255,255,255,0.05)', 
+                    border: '1.5px solid rgba(255,255,255,0.1)',
+                    borderRadius: '16px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '12px',
+                    position: 'relative',
+                    backdropFilter: 'blur(8px)',
+                    flexShrink: 0
+                  }}>
+                    <div style={{ 
+                      width: '48px', 
+                      height: '48px', 
+                      borderRadius: '50%', 
+                      background: `linear-gradient(135deg, ${candidate.color}, #ffffff33)`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '18px',
+                      fontWeight: 600,
+                      color: 'white',
+                      boxShadow: `0 4px 12px ${candidate.color}44`
+                    }}>
+                      {candidate.name[0]}
+                    </div>
+                    <div style={{ fontSize: '11px', fontWeight: 600, color: 'rgba(255,255,255,0.6)', letterSpacing: '0.05em' }}>
+                      {candidate.role}
+                    </div>
+                  </div>
                 ))}
              </div>
           </div>

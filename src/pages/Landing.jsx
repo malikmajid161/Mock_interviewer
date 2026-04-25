@@ -23,20 +23,35 @@ const Landing = ({ navigate }) => {
               Interview Forge prepares you for every question, every format, and every round — with AI that thinks like a real recruiter.
             </p>
             
-            <div className="social-proof" style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '40px' }}>
+            <div className="social-proof" style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '40px' }}>
               <div className="avatar-group" style={{ display: 'flex' }}>
-                {[1, 2, 3, 4, 5].map(i => (
+                {[
+                  { color: '#6c63ff', role: 'SWE' },
+                  { color: '#18b89a', role: 'PM' },
+                  { color: '#ff6b6b', role: 'ML' }
+                ].map((badge, i) => (
                   <div key={i} style={{ 
-                    width: '32px', 
-                    height: '32px', 
-                    borderRadius: '50%', 
-                    background: `hsl(${i * 40}, 70%, 60%)`, 
+                    width: '36px', 
+                    height: '36px', 
+                    borderRadius: '10px', 
+                    background: badge.color,
                     border: '2px solid white',
-                    marginLeft: i === 1 ? '0' : '-8px'
-                  }} />
+                    marginLeft: i === 0 ? '0' : '-12px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    fontSize: '10px',
+                    fontWeight: 700,
+                    boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
+                  }}>
+                    {badge.role}
+                  </div>
                 ))}
               </div>
-              <span style={{ fontSize: '14px', color: 'var(--text-muted)' }}>Joined by 50,000+ candidates worldwide</span>
+              <span style={{ fontSize: '14px', color: 'var(--text-muted)' }}>
+                Joined by <strong style={{ color: 'var(--navy)' }}>50,000+ candidates</strong> worldwide
+              </span>
             </div>
 
             <div className="hero-ctas" style={{ display: 'flex', gap: '16px', marginBottom: '32px' }}>
@@ -138,9 +153,32 @@ const Landing = ({ navigate }) => {
       <footer style={{ background: 'var(--navy)', color: 'white', padding: '64px 0', textAlign: 'center' }}>
         <div className="container">
           <h2 style={{ color: 'white', marginBottom: '24px' }}>Ready to get started?</h2>
-          <button className="btn-primary" onClick={() => navigate('signup')}>Create Your Free Account</button>
-          <div style={{ marginTop: '40px', opacity: 0.5, fontSize: '14px' }}>
-            © 2026 Interview Forge. All rights reserved.
+          <button className="btn-primary" onClick={() => navigate('signup')} style={{ marginBottom: '40px' }}>Create Your Free Account</button>
+          
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', overflow: 'hidden', padding: '10px 0', opacity: 0.8 }}>
+             {[
+               { name: 'A', role: 'SWE', color: '#6c63ff' },
+               { name: 'S', role: 'PM', color: '#18b89a' },
+               { name: 'K', role: 'ML', color: '#ff6b6b' },
+               { name: 'E', role: 'UX', color: '#f59e0b' },
+               { name: 'O', role: 'DS', color: '#6c63ff' }
+             ].map((c, i) => (
+               <div key={i} style={{ 
+                 width: '60px', 
+                 height: '70px', 
+                 background: 'rgba(255,255,255,0.1)', 
+                 borderRadius: '12px',
+                 display: 'flex',
+                 flexDirection: 'column',
+                 alignItems: 'center',
+                 justifyContent: 'center',
+                 gap: '8px',
+                 border: '1px solid rgba(255,255,255,0.1)'
+               }}>
+                 <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: c.color, fontSize: '12px', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{c.name}</div>
+                 <div style={{ fontSize: '9px', fontWeight: 600, color: 'rgba(255,255,255,0.5)' }}>{c.role}</div>
+               </div>
+             ))}
           </div>
         </div>
       </footer>
