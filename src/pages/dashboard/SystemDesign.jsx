@@ -108,7 +108,7 @@ const SystemDesign = () => {
           <h4 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '16px' }}>Distributed Infrastructure</h4>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '48px', opacity: 0.6 }}>
              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Globe size={18} /> Edge Compute</div>
-             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Zap size={18} /> < 50ms Latency</div>
+             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Zap size={18} /> {'<'} 50ms Latency</div>
              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><GitBranch size={18} /> CI/CD Pipeline</div>
           </div>
         </div>
