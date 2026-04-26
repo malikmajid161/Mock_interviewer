@@ -22,7 +22,10 @@ const Dashboard = ({ navigate, session }) => {
   }, [session])
 
   async function fetchDashboardData() {
-    if (!session?.user) return
+    if (!session?.user) {
+      setLoading(false)
+      return
+    }
     
     try {
       // Fetch core stats

@@ -4,7 +4,7 @@ import { supabase } from '../lib/supabase'
 
 const DashboardLayout = ({ children, navigate, activeView, session }) => {
   const handleSignOut = async () => {
-    await supabase.auth.signOut()
+    if (session) await supabase.auth.signOut()
     navigate('landing')
   }
 
@@ -41,7 +41,7 @@ const DashboardLayout = ({ children, navigate, activeView, session }) => {
         flexDirection: 'column',
         position: 'relative',
         zIndex: 10,
-        boxShadow: '4px 0 24px rgba(0,0,0,0.1)'
+        borderRight: '1px solid rgba(255,255,255,0.05)'
       }}>
         {/* Logo Section */}
         <div style={{ padding: '32px 24px', display: 'flex', alignItems: 'center', gap: '14px' }}>
@@ -114,7 +114,7 @@ const DashboardLayout = ({ children, navigate, activeView, session }) => {
         {/* Sidebar Footer */}
         <div style={{ padding: '20px 16px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
           <button 
-            onClick={() => supabase.auth.signOut()}
+            onClick={handleSignOut}
             style={{ 
               width: '100%', 
               display: 'flex', 
@@ -133,7 +133,7 @@ const DashboardLayout = ({ children, navigate, activeView, session }) => {
             onMouseEnter={e => { e.currentTarget.style.background = 'rgba(239, 68, 68, 0.1)'; e.currentTarget.style.color = '#ef4444' }}
             onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'rgba(255,255,255,0.4)' }}
           >
-            <LogOut size={18} /> Sign Out
+            <LogOut size={18} /> {session ? 'Sign Out' : 'Exit Demo'}
           </button>
         </div>
       </aside>
