@@ -1,8 +1,17 @@
-import { LayoutDashboard, BookOpen, CheckSquare, MessageSquare, Calendar, BarChart3, Settings, LogOut, Target, Users, DollarSign, Activity, User, Bell, Zap, FileText, Terminal, Navigation } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import { LayoutDashboard, BookOpen, CheckSquare, MessageSquare, Calendar, BarChart3, Settings, LogOut, Target, Users, DollarSign, Activity, User, Bell, Zap, FileText, Terminal, Navigation, Menu, X } from 'lucide-react'
 import logo from '../assets/logo.png'
 import { supabase } from '../lib/supabase'
 
 const DashboardLayout = ({ children, navigate, activeView, session }) => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
+  const [showMobileMenu, setShowMobileMenu] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
   const handleSignOut = async () => {
     if (session) await supabase.auth.signOut()
     navigate('landing')
@@ -35,10 +44,10 @@ const DashboardLayout = ({ children, navigate, activeView, session }) => {
     <div style={{ display: 'flex', height: '100vh', background: 'var(--warm-white)', overflow: 'hidden' }}>
       {/* Sidebar */}
       <aside style={{ 
-        width: '280px', 
+        width: isMobile ? '0' : '280px',
+        display: isMobile ? 'none' : 'flex',
         background: 'var(--navy)', 
         color: 'white', 
-        display: 'flex', 
         flexDirection: 'column',
         position: 'relative',
         zIndex: 10,
@@ -143,32 +152,45 @@ const DashboardLayout = ({ children, navigate, activeView, session }) => {
       <main style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', position: 'relative' }}>
         {/* Header */}
         <header style={{ 
-          height: '72px', 
+          height: isMobile ? '64px' : '72px', 
           background: 'rgba(255,255,255,0.8)', 
           backdropFilter: 'blur(12px)', 
           borderBottom: '1px solid var(--border-light)', 
           display: 'flex', 
           alignItems: 'center', 
           justifyContent: 'space-between', 
-          padding: '0 40px',
+          padding: isMobile ? '0 20px' : '0 40px',
           position: 'sticky',
           top: 0,
           zIndex: 5
         }}>
-          <h2 style={{ fontSize: '18px', fontWeight: 600, color: 'var(--text-primary)', textTransform: 'capitalize' }}>
-            {activeView.replace('-', ' ')}
-          </h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            {isMobile && (
+              <button onClick={() => setShowMobileMenu(!showMobileMenu)} style={{ background: 'none', border: 'none', color: 'var(--navy)', cursor: 'pointer' }}>
+                <Menu size={24} />
+              </button>
+            )}
+            <h2 style={{ fontSize: isMobile ? '16px' : '18px', fontWeight: 600, color: 'var(--text-primary)', textTransform: 'capitalize' }}>
+              {activeView.replace('-', ' ')}
+            </h2>
+          </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-            <button style={{ background: 'transparent', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', position: 'relative' }}>
-              <Bell size={20} />
-              <div style={{ position: 'absolute', top: '-2px', right: '-2px', width: '8px', height: '8px', background: '#ef4444', borderRadius: '50%', border: '2px solid white' }}></div>
-            </button>
-            <div style={{ width: '1px', height: '24px', background: 'var(--border-light)' }}></div>
+            {!isMobile && (
+              <>
+                <button style={{ background: 'transparent', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', position: 'relative' }}>
+                  <Bell size={20} />
+                  <div style={{ position: 'absolute', top: '-2px', right: '-2px', width: '8px', height: '8px', background: '#ef4444', borderRadius: '50%', border: '2px solid white' }}></div>
+                </button>
+                <div style={{ width: '1px', height: '24px', background: 'var(--border-light)' }}></div>
+              </>
+            )}
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: '13px', fontWeight: 600 }}>{username}</div>
-                <div style={{ fontSize: '11px', color: 'var(--teal)', fontWeight: 700, cursor: 'pointer' }} onClick={() => navigate('checkout')}>Upgrade Plan</div>
-              </div>
+              {!isMobile && (
+                <div style={{ textAlign: 'right' }}>
+                  <div style={{ fontSize: '13px', fontWeight: 600 }}>{username}</div>
+                  <div style={{ fontSize: '11px', color: 'var(--teal)', fontWeight: 700, cursor: 'pointer' }} onClick={() => navigate('checkout')}>Upgrade Plan</div>
+                </div>
+              )}
               <div style={{ 
                 width: '36px', 
                 height: '36px', 
@@ -186,10 +208,96 @@ const DashboardLayout = ({ children, navigate, activeView, session }) => {
           </div>
         </header>
 
-        {/* View Content */}
-        <div style={{ flex: 1, position: 'relative' }}>
-          {children}
-        </div>
+        {/* Bottom Nav for Mobile */}
+        {isMobile && (
+          <nav style={{ 
+            position: 'fixed', 
+            bottom: 0, 
+            left: 0, 
+            right: 0, 
+            background: 'white', 
+            borderTop: '1px solid var(--border-light)', 
+            height: '64px', 
+            display: 'flex', 
+            justifyContent: 'space-around', 
+            alignItems: 'center',
+            zIndex: 100,
+            padding: '0 10px'
+          }}>
+            {[
+              { id: 'dashboard', icon: <LayoutDashboard size={20} />, label: 'Home' },
+              { id: 'interview-lab', icon: <Zap size={20} />, label: 'Lab' },
+              { id: 'mock-interview', icon: <MessageSquare size={20} />, label: 'Mock' },
+              { id: 'job-radar', icon: <Navigation size={20} />, label: 'Jobs' },
+              { id: 'settings', icon: <Settings size={20} />, label: 'Menu' }
+            ].map(item => (
+              <button 
+                key={item.id}
+                onClick={() => item.id === 'settings' ? setShowMobileMenu(true) : navigate(item.id)}
+                style={{ 
+                  background: 'none', 
+                  border: 'none', 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  alignItems: 'center', 
+                  gap: '4px',
+                  color: activeView === item.id ? 'var(--teal)' : 'var(--text-muted)',
+                  cursor: 'pointer'
+                }}
+              >
+                {item.icon}
+                <span style={{ fontSize: '10px', fontWeight: 600 }}>{item.label}</span>
+              </button>
+            ))}
+          </nav>
+        )}
+
+        {/* Mobile Fullscreen Menu */}
+        {showMobileMenu && (
+          <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'var(--navy)', zIndex: 1000, padding: '40px 24px', overflowY: 'auto', animation: 'fadeIn 0.3s ease' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <img src={logo} alt="Logo" style={{ width: '32px', height: '32px', borderRadius: '8px' }} />
+                <span style={{ color: 'white', fontWeight: 700 }}>Menu</span>
+              </div>
+              <button onClick={() => setShowMobileMenu(false)} style={{ background: 'none', border: 'none', color: 'white' }}>
+                <X size={24} />
+              </button>
+            </div>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {navItems.map(item => {
+                if (!item.id) return <div key={item.name} style={{ padding: '20px 0 8px', fontSize: '10px', color: 'rgba(255,255,255,0.3)', fontWeight: 700, textTransform: 'uppercase' }}>{item.name.replace('— ', '')}</div>
+                return (
+                  <button 
+                    key={item.id}
+                    onClick={() => { navigate(item.id); setShowMobileMenu(false); }}
+                    style={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      gap: '12px', 
+                      padding: '16px', 
+                      borderRadius: '12px', 
+                      background: activeView === item.id ? 'rgba(6,182,212,0.1)' : 'transparent',
+                      border: 'none',
+                      color: activeView === item.id ? 'var(--teal)' : 'white',
+                      width: '100%',
+                      textAlign: 'left'
+                    }}
+                  >
+                    {item.icon} {item.name}
+                  </button>
+                )
+              })}
+              <button 
+                onClick={handleSignOut}
+                style={{ marginTop: '32px', padding: '16px', color: '#ef4444', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '12px', border: 'none', display: 'flex', alignItems: 'center', gap: '12px' }}
+              >
+                <LogOut size={20} /> {session ? 'Sign Out' : 'Exit Demo'}
+              </button>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   )

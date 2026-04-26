@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react'
-import { Sparkles, CheckCircle, Globe, Play, ArrowRight, Star, Target, Users, DollarSign, Activity, Zap, ShieldCheck } from 'lucide-react'
+import React, { useState, useEffect, useRef } from 'react'
+import { Sparkles, CheckCircle, Globe, Play, ArrowRight, Star, Target, Users, DollarSign, Activity, Zap, ShieldCheck, Menu, X } from 'lucide-react'
 import logo from '../assets/logo.png'
 import FloatingBackground from '../components/FloatingBackground'
 
@@ -14,6 +14,9 @@ const Landing = ({ navigate, session }) => {
   }
 
   useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768)
+    window.addEventListener('resize', handleResize)
+    
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -23,7 +26,10 @@ const Landing = ({ navigate, session }) => {
     }, { threshold: 0.1 })
 
     revealRefs.current.forEach(el => observer.observe(el))
-    return () => observer.disconnect()
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      observer.disconnect()
+    }
   }, [])
 
   const handleGetStarted = () => {
@@ -59,23 +65,25 @@ const Landing = ({ navigate, session }) => {
           <span style={{ fontSize: '20px', fontWeight: 800, color: 'var(--navy)', letterSpacing: '-0.02em' }}>Interview Forge</span>
         </div>
         
-        <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
-          <div style={{ display: 'flex', gap: '24px' }} className="nav-links">
-            {['Features', 'Testimonials', 'Pricing'].map(link => (
-              <span 
-                key={link} 
-                onClick={() => scrollToSection(link.toLowerCase())}
-                style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-secondary)', cursor: 'pointer', transition: 'color 0.2s' }}
-                onMouseEnter={e => e.target.style.color = 'var(--teal)'}
-                onMouseLeave={e => e.target.style.color = 'var(--text-secondary)'}
-              >
-                {link}
-              </span>
-            ))}
-          </div>
-          <div style={{ width: '1px', height: '24px', background: 'var(--border-light)' }}></div>
+        <div style={{ display: 'flex', gap: isMobile ? '12px' : '32px', alignItems: 'center' }}>
+          {!isMobile && (
+            <div style={{ display: 'flex', gap: '24px' }} className="nav-links">
+              {['Features', 'Testimonials', 'Pricing'].map(link => (
+                <span 
+                  key={link} 
+                  onClick={() => scrollToSection(link.toLowerCase())}
+                  style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-secondary)', cursor: 'pointer', transition: 'color 0.2s' }}
+                  onMouseEnter={e => e.target.style.color = 'var(--teal)'}
+                  onMouseLeave={e => e.target.style.color = 'var(--text-secondary)'}
+                >
+                  {link}
+                </span>
+              ))}
+            </div>
+          )}
+          {!isMobile && <div style={{ width: '1px', height: '24px', background: 'var(--border-light)' }}></div>}
           {!session ? (
-            <button onClick={() => navigate('signin')} style={{ background: 'none', border: 'none', fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)', cursor: 'pointer' }}>Sign In</button>
+            !isMobile && <button onClick={() => navigate('signin')} style={{ background: 'none', border: 'none', fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)', cursor: 'pointer' }}>Sign In</button>
           ) : (
             <div onClick={() => navigate('dashboard')} style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
               <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--teal), #0891b2)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 700 }}>
@@ -83,81 +91,66 @@ const Landing = ({ navigate, session }) => {
               </div>
             </div>
           )}
-          <button className="btn-primary" onClick={handleGetStarted} style={{ padding: '10px 24px', fontSize: '14px' }}>
-            {session ? 'Go to Dashboard' : 'Get Started Free'}
+          <button className="btn-primary" onClick={handleGetStarted} style={{ padding: isMobile ? '8px 16px' : '10px 24px', fontSize: isMobile ? '12px' : '14px' }}>
+            {session ? (isMobile ? 'Dashboard' : 'Go to Dashboard') : (isMobile ? 'Start' : 'Get Started Free')}
           </button>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section style={{ padding: '120px 5vw', display: 'flex', alignItems: 'center', minHeight: '85vh', background: 'radial-gradient(circle at 100% 0%, rgba(6, 182, 212, 0.05) 0%, transparent 40%)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '80px', alignItems: 'center' }}>
+      <section style={{ padding: isMobile ? '80px 5vw' : '120px 5vw', display: 'flex', alignItems: 'center', minHeight: '85vh', background: 'radial-gradient(circle at 100% 0%, rgba(6, 182, 212, 0.05) 0%, transparent 40%)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1.2fr 1fr', gap: isMobile ? '40px' : '80px', alignItems: 'center' }}>
           <div className="animate-fade-up">
             <div className="badge badge-teal" style={{ marginBottom: '24px', background: 'rgba(6, 182, 212, 0.1)', color: 'var(--teal)' }}>
               <Sparkles size={14} /> AI-POWERED PERFORMANCE
             </div>
-            <h1 style={{ marginBottom: '24px', fontSize: '72px', letterSpacing: '-0.04em' }}>
+            <h1 style={{ marginBottom: '24px', fontSize: isMobile ? '42px' : '72px', letterSpacing: '-0.04em', lineHeight: 1.1 }}>
               Master your <span style={{ color: 'var(--teal)' }}>interviews</span> with precision.
             </h1>
-            <p style={{ fontSize: '20px', color: 'var(--text-secondary)', marginBottom: '40px', lineHeight: 1.6, maxWidth: '580px' }}>
-              Stop guessing. Start performing. Interview Forge uses state-of-the-art AI to simulate pressure, analyze confidence, and evolve your answers in real-time.
+            <p style={{ fontSize: isMobile ? '18px' : '20px', color: 'var(--text-secondary)', marginBottom: '40px', lineHeight: 1.6, maxWidth: '600px' }}>
+              The elite preparation platform for engineers. AI biometrics, real-time stress tracking, and industry-grade question banks.
             </p>
-            
-            <div style={{ display: 'flex', gap: '16px', marginBottom: '48px' }}>
-              <button className="btn-primary" onClick={handleGetStarted} style={{ padding: '16px 36px', fontSize: '16px' }}>
-                Start Practicing Now <ArrowRight size={20} />
+            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', marginBottom: '48px' }}>
+              <button className="btn-primary" onClick={handleGetStarted} style={{ padding: '18px 40px', fontSize: '16px', gap: '12px' }}>
+                Start Practice <ArrowRight size={20} />
               </button>
-              <button className="btn-ghost" style={{ padding: '16px 36px', fontSize: '16px' }}>
-                Watch Demo <Play size={18} fill="currentColor" />
+              <button className="btn-ghost" style={{ padding: '18px 40px', fontSize: '16px', gap: '12px', background: 'white' }}>
+                <Play size={18} /> Watch Demo
               </button>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '40px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '20px' : '40px', opacity: 0.8 }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 <div style={{ fontSize: '24px', fontWeight: 800 }}>50k+</div>
-                <div style={{ fontSize: '13px', color: 'var(--text-muted)', fontWeight: 600 }}>CANDIDATES</div>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>Candidates</div>
               </div>
               <div style={{ width: '1px', height: '40px', background: 'var(--border-light)' }}></div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 <div style={{ fontSize: '24px', fontWeight: 800 }}>98%</div>
-                <div style={{ fontSize: '13px', color: 'var(--text-muted)', fontWeight: 600 }}>SUCCESS RATE</div>
-              </div>
-              <div style={{ width: '1px', height: '40px', background: 'var(--border-light)' }}></div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <div style={{ fontSize: '24px', fontWeight: 800 }}>4.9/5</div>
-                <div style={{ fontSize: '13px', color: 'var(--text-muted)', fontWeight: 600 }}>AVG RATING</div>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase' }}>Success Rate</div>
               </div>
             </div>
           </div>
 
-          <div style={{ position: 'relative' }} className="animate-scale-in">
-            <div style={{ position: 'absolute', top: '-10%', left: '-10%', width: '120%', height: '120%', background: 'linear-gradient(135deg, rgba(6,182,212,0.1) 0%, rgba(139,92,246,0.1) 100%)', borderRadius: '40% 60% 70% 30% / 40% 50% 60% 70%', zIndex: -1, animation: 'spin 20s linear infinite' }}></div>
-            <div className="glass-card" style={{ padding: '40px', transform: 'rotate(2deg)', border: '1px solid white' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '32px' }}>
-                <div style={{ display: 'flex', gap: '8px' }}>
-                  <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ff5f56' }}></div>
-                  <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e' }}></div>
-                  <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27c93f' }}></div>
+          {!isMobile && (
+            <div className="animate-fade-up" style={{ position: 'relative', animationDelay: '0.2s' }}>
+              <div style={{ background: 'var(--navy)', borderRadius: '32px', padding: '40px', boxShadow: 'var(--shadow-2xl)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                <div style={{ display: 'flex', gap: '8px', marginBottom: '24px' }}>
+                  {[1,2,3].map(i => <div key={i} style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)' }}></div>)}
                 </div>
-                <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--teal)', background: 'rgba(6,182,212,0.1)', padding: '4px 10px', borderRadius: '100px' }}>LIVE ANALYTICS</div>
-              </div>
-              <div style={{ display: 'flex', gap: '12px', marginBottom: '24px' }}>
-                <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: 'var(--navy)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Zap size={20} color="white" /></div>
-                <div>
-                  <div style={{ fontSize: '14px', fontWeight: 700 }}>Confidence Waveform</div>
-                  <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Calibrating linguistic conviction...</div>
+                <div style={{ color: 'var(--teal)', fontSize: '12px', fontWeight: 800, textTransform: 'uppercase', marginBottom: '16px' }}>AI Biometric Scan</div>
+                <div style={{ height: '200px', display: 'flex', alignItems: 'flex-end', gap: '8px', marginBottom: '24px' }}>
+                  {Array.from({ length: 15 }).map((_, i) => (
+                    <div key={i} className="waveform-bar" style={{ flex: 1, background: 'var(--teal)', height: `${30 + Math.random() * 70}%`, opacity: 0.3 + (i/15)*0.7, borderRadius: '4px' }}></div>
+                  ))}
                 </div>
-              </div>
-              <div style={{ height: '80px', display: 'flex', alignItems: 'flex-end', gap: '4px', marginBottom: '24px' }}>
-                {[40, 70, 45, 90, 65, 30, 85, 40, 60, 50, 75, 45, 90, 40, 60].map((h, i) => (
-                  <div key={i} style={{ flex: 1, background: i > 10 ? 'var(--border-light)' : 'var(--teal)', height: `${h}%`, borderRadius: '4px', animation: 'fadeIn 0.5s ease forwards', animationDelay: `${i * 0.05}s` }}></div>
-                ))}
-              </div>
-              <div style={{ padding: '16px', background: 'rgba(0,0,0,0.03)', borderRadius: '12px', fontSize: '13px', fontStyle: 'italic', color: 'var(--text-secondary)', borderLeft: '3px solid var(--teal)' }}>
-                "The way you handled the 'conflict' question showed high leadership conviction but low empathy markers. Try softening your tone."
+                <div style={{ display: 'flex', justifyContent: 'space-between', color: 'white', fontSize: '14px' }}>
+                  <span>Stress Markers: <span style={{ color: 'var(--teal)' }}>Low</span></span>
+                  <span>Confidence: <span style={{ color: 'var(--teal)' }}>94%</span></span>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 

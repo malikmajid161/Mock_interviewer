@@ -13,6 +13,13 @@ const Dashboard = ({ navigate, session }) => {
   })
   const [loading, setLoading] = useState(true)
   const [profile, setProfile] = useState(null)
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const userEmail = session?.user?.email || 'Candidate'
   const userName = userEmail.split('@')[0]
@@ -77,37 +84,39 @@ const Dashboard = ({ navigate, session }) => {
   }
 
   return (
-    <div style={{ position: 'relative', minHeight: '100vh', background: 'var(--warm-white)' }}>
+    <div style={{ position: 'relative', minHeight: '100vh', background: 'var(--warm-white)', paddingBottom: isMobile ? '80px' : 0 }}>
       <FloatingBackground />
-      <div style={{ padding: '40px 60px', maxWidth: '1400px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+      <div style={{ padding: isMobile ? '24px 20px' : '40px 60px', maxWidth: '1400px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
         {/* Welcome Section */}
-        <header className="animate-fade-up" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '40px' }}>
+        <header className="animate-fade-up" style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'flex-end', marginBottom: '40px', gap: '20px' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
               <span className="badge badge-teal" style={{ background: 'var(--teal-light)', color: 'var(--teal)', fontWeight: 700 }}>PRO ACCESS</span>
-              <span style={{ fontSize: '14px', color: 'var(--text-muted)', fontWeight: 500 }}>System Status: <span style={{ color: 'var(--success)' }}>Optimal</span></span>
+              {!isMobile && <span style={{ fontSize: '14px', color: 'var(--text-muted)', fontWeight: 500 }}>System Status: <span style={{ color: 'var(--success)' }}>Optimal</span></span>}
             </div>
-            <h1 style={{ fontSize: '42px', fontWeight: 800, color: 'var(--navy)', letterSpacing: '-0.02em' }}>
+            <h1 style={{ fontSize: isMobile ? '32px' : '42px', fontWeight: 800, color: 'var(--navy)', letterSpacing: '-0.02em' }}>
               {getGreeting()}, <span style={{ color: 'var(--teal)' }}>{profile?.first_name || userName}</span>
             </h1>
-            <p style={{ fontSize: '18px', color: 'var(--text-secondary)', marginTop: '4px' }}>You have 2 practice sessions recommended for today.</p>
+            <p style={{ fontSize: isMobile ? '15px' : '18px', color: 'var(--text-secondary)', marginTop: '4px' }}>You have 2 practice sessions recommended for today.</p>
           </div>
-          <div style={{ display: 'flex', gap: '12px' }}>
-            <button className="btn-ghost" style={{ padding: '12px 24px', background: 'white' }}>
-              <Calendar size={18} /> Schedule
-            </button>
-            <button className="btn-primary" onClick={() => navigate('mock-interview')} style={{ padding: '12px 24px' }}>
+          <div style={{ display: 'flex', gap: '12px', width: isMobile ? '100%' : 'auto' }}>
+            {!isMobile && (
+              <button className="btn-ghost" style={{ padding: '12px 24px', background: 'white' }}>
+                <Calendar size={18} /> Schedule
+              </button>
+            )}
+            <button className="btn-primary" onClick={() => navigate('mock-interview')} style={{ padding: '12px 24px', flex: isMobile ? 1 : 'none' }}>
               <Plus size={18} /> New Session
             </button>
           </div>
         </header>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '2.4fr 1fr', gap: '32px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '2.4fr 1fr', gap: isMobile ? '24px' : '32px' }}>
           {/* Main Content Area */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
             
             {/* AI Insights Bar */}
-            <div className="animate-fade-up" style={{ animationDelay: '0.1s', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+            <div className="animate-fade-up" style={{ animationDelay: '0.1s', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '20px' }}>
               {aiInsights.map((insight, i) => (
                 <div key={i} className="glass-card" style={{ padding: '24px', background: 'white', border: '1px solid var(--border-light)', position: 'relative', overflow: 'hidden' }}>
                   <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: insight.color }}></div>
@@ -128,7 +137,7 @@ const Dashboard = ({ navigate, session }) => {
                   <div className="badge badge-navy" style={{ background: 'var(--navy)', color: 'white' }}>LIVE ANALYTICS</div>
                 </div>
                 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '40px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? '32px' : '40px' }}>
                   <div style={{ textAlign: 'center' }}>
                     <div style={{ position: 'relative', width: '120px', height: '120px', margin: '0 auto 20px' }}>
                       <svg viewBox="0 0 36 36" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
@@ -160,7 +169,7 @@ const Dashboard = ({ navigate, session }) => {
             </div>
 
             {/* Recent Activity & Global Pulse */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '24px' : '32px' }}>
               <div className="card" style={{ padding: '32px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
                   <h4 style={{ fontWeight: 800, fontSize: '18px' }}>Activity Stream</h4>
