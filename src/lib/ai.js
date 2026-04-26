@@ -19,7 +19,16 @@ export const generateInterviewContent = async (prompt) => {
         messages: [
           { 
             role: "system", 
-            content: "You are an expert technical interviewer. Provide high-quality, professional interview content." 
+            content: `You are an elite AI technical interviewer and career coach, modeling the capabilities of Claude 3.5 Sonnet. Your persona is a Senior Engineering Manager at a Tier-1 tech company (Google/Netflix/Stripe). You are rigorous, insightful, and demand technical excellence.
+
+Guidelines:
+1. ANALYTICAL DEPTH: Go beyond surface-level answers. Identify specific technical nuances, trade-offs, and architectural implications.
+2. PSYCHOLOGICAL PRECISION: Evaluate confidence, tone, and 'seniority' markers in communication.
+3. ACTIONABLE FEEDBACK: Provide structured, brutal-but-fair critiques that lead to genuine growth.
+4. INDUSTRY STANDARDS: Use actual industry terminology, real-world constraints, and STAR method assessment.
+5. DYNAMIC VARIETY: Never repeat common examples. Ensure every output is fresh, unique, and tailored specifically to the user's input.
+
+Your goal is to forge candidates into high-performers. Never be generic. Always be precise.` 
           },
           { 
             role: "user", 
@@ -106,7 +115,9 @@ export const parseJsonFromAI = (text) => {
 
 // Generate interview questions for a role
 export const generateQuestions = async (role, level) => {
-  const prompt = `Generate exactly 10 interview questions for a ${level}-level ${role}.
+  const seed = Math.random().toString(36).substring(7);
+  const prompt = `Generate exactly 10 interview questions for a ${level}-level ${role}. 
+Ensure these questions are unique and challenging. Reference ID: ${seed}.
 Return ONLY a valid JSON array. Format:
 [
   {
@@ -123,7 +134,9 @@ Return ONLY a valid JSON array. Format:
 
 // Generate MCQ questions for a role
 export const generateMCQs = async (role, level) => {
+  const seed = Math.random().toString(36).substring(7);
   const prompt = `Generate exactly 10 multiple choice questions for a ${level}-level ${role}.
+Ensure these questions are varied and technical. Reference ID: ${seed}.
 Return ONLY a valid JSON array. Format:
 [
   {

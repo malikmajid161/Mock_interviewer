@@ -470,23 +470,9 @@ Return ONLY a valid JSON object. Do not include markdown. Format:
 
       <div style={{ marginTop: '64px' }}>
         <h3 style={{ marginBottom: '24px' }}>Recent Sessions</h3>
-        <div className="card" style={{ padding: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'var(--surface-alt)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Layout size={20} style={{ color: 'var(--text-secondary)' }} />
-            </div>
-            <div>
-              <div style={{ fontWeight: 600 }}>Senior Software Engineer Round</div>
-              <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Yesterday • 45 minutes</div>
-            </div>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-            <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: '18px', fontWeight: 700, color: 'var(--teal)' }}>84/100</div>
-              <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Clarity Score</div>
-            </div>
-            <button className="btn-ghost" onClick={openStaticFeedback} style={{ padding: '8px 16px', fontSize: '13px' }}>View Feedback</button>
-          </div>
+        <div style={{ textAlign: 'center', padding: '60px', background: 'var(--surface-alt)', borderRadius: '24px', color: 'var(--text-muted)' }}>
+          <Clock size={40} style={{ margin: '0 auto 16px', opacity: 0.5 }} />
+          <p>Your practice history will appear here once you complete a session.</p>
         </div>
       </div>
 

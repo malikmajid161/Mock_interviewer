@@ -113,7 +113,7 @@ const McqQuiz = () => {
             
             <label className="input-label">Experience Level</label>
             <div style={{ display: 'flex', gap: '8px' }}>
-              {['Entry', 'Mid', 'Senior'].map(l => (
+              {['Entry', 'Mid', 'Senior', 'Expert'].map(l => (
                 <button key={l} onClick={() => setLevel(l)} style={{ flex: 1, padding: '10px', borderRadius: '10px', border: '1.5px solid', borderColor: level === l ? 'var(--teal)' : 'var(--border-light)', background: level === l ? 'var(--teal)' : 'white', color: level === l ? 'white' : 'var(--text-secondary)', fontSize: '13px', fontWeight: 600, cursor: 'pointer' }}>{l}</button>
               ))}
             </div>
