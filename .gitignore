@@ -4,5 +4,8 @@ dist
 .env.local
 .env.*.local
 *.local
+<<<<<<< HEAD
 
 .vercel
+=======
+>>>>>>> 01199d178171575d9bc8fa46f544d215fb93e143
