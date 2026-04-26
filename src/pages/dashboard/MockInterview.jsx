@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Video, Mic, Layout, Send, User, Bot, Loader2, ArrowLeft, Zap, RefreshCw, TrendingUp, ChevronDown } from 'lucide-react'
-import { generateInterviewContent, transcribeAudio, generateCurveball, generateRewriteChallenge, scoreAnswerImprovement, analyzeConfidence, extractWeaknessTags } from '../lib/ai'
+import { generateInterviewContent, transcribeAudio, generateCurveball, generateRewriteChallenge, scoreAnswerImprovement, analyzeConfidence, extractWeaknessTags } from '../../lib/ai'
 
 const MockInterview = ({ navigate }) => {
   const [sessionActive, setSessionActive] = useState(false)
@@ -541,4 +541,5 @@ Return ONLY a valid JSON object. Do not include markdown. Format:
 }
 
 export default MockInterview
+
 

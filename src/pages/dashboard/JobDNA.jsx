@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Target, Loader2, ChevronRight, AlertCircle, CheckCircle, Zap, ArrowRight, RefreshCw, Star } from 'lucide-react'
-import { parseJobDescription, generateInterviewContent, generateGapReport, parseJsonFromAI } from '../lib/ai'
+import { parseJobDescription, generateInterviewContent, generateGapReport, parseJsonFromAI } from '../../lib/ai'
 
 const DIFFICULTY_COLOR = { Easy: '#10b981', Medium: '#f59e0b', Hard: '#ef4444' }
 
@@ -340,4 +340,5 @@ SCORE: X/10 — [one sentence on strength]. [One sentence on what's missing or c
 }
 
 export default JobDNA
+
 

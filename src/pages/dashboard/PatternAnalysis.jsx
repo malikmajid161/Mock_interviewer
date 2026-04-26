@@ -130,3 +130,4 @@ const PatternAnalysis = ({ session }) => {
 
 export default PatternAnalysis
 
+

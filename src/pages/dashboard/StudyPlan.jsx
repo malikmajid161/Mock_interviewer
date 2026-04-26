@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Calendar, CheckCircle2, Circle, Sparkles, Loader2, Lock } from 'lucide-react'
-import { generateInterviewContent, parseJsonFromAI } from '../lib/ai'
+import { generateInterviewContent, parseJsonFromAI } from '../../lib/ai'
 import { supabase } from '../../lib/supabase'
 
 const StudyPlan = ({ session }) => {
@@ -182,4 +182,5 @@ Return ONLY a valid JSON object, no markdown formatting. Use this exact schema:
 }
 
 export default StudyPlan
+
 

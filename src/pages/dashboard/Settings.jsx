@@ -224,3 +224,4 @@ const Settings = ({ navigate, session }) => {
 
 export default Settings
 
+

@@ -232,3 +232,4 @@ const SignUp = ({ navigate }) => {
 
 export default SignUp
 
+

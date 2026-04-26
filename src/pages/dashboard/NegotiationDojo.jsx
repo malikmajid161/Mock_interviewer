@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { DollarSign, Loader2, ArrowRight, TrendingUp, RefreshCw, Trophy, AlertCircle } from 'lucide-react'
-import { negotiationResponse, scoreNegotiation } from '../lib/ai'
+import { negotiationResponse, scoreNegotiation } from '../../lib/ai'
 
 const SCENARIOS = [
   { id: 1, label: 'Entry Level — First Job Offer', role: 'Junior Software Developer', initial: 65, market: 80, emoji: '🌱', desc: 'Your first real offer. It feels exciting but something is off...' },
@@ -297,4 +297,5 @@ const NegotiationDojo = ({ navigate }) => {
 }
 
 export default NegotiationDojo
+
 

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { Users, Loader2, ArrowRight, RefreshCw, Star, Zap } from 'lucide-react'
-import { generatePanelQuestion, generatePanelistReaction, generateInterviewContent } from '../lib/ai'
+import { generatePanelQuestion, generatePanelistReaction, generateInterviewContent } from '../../lib/ai'
 
 const PANELISTS = [
   {
@@ -348,4 +348,5 @@ const PanelInterview = ({ navigate }) => {
 }
 
 export default PanelInterview
+
 

@@ -20,6 +20,7 @@ import PatternAnalysis from './pages/dashboard/PatternAnalysis'
 import InterviewLab from './pages/dashboard/InterviewLab'
 import ResumeAnalyzer from './pages/dashboard/ResumeAnalyzer'
 import Checkout from './pages/dashboard/Checkout'
+import SystemDesign from './pages/dashboard/SystemDesign'
 
 function App() {
   const [currentView, setCurrentView] = useState(() => {
@@ -104,6 +105,7 @@ function App() {
             case 'interview-lab':   return <InterviewLab navigate={navigate} session={session} />
             case 'resume-analyzer': return <ResumeAnalyzer navigate={navigate} />
             case 'checkout':        return <Checkout navigate={navigate} />
+            case 'system-design':   return <SystemDesign />
             case 'dashboard':
             default: return <Dashboard navigate={navigate} session={session} />
           }

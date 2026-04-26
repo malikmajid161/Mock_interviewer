@@ -1,4 +1,4 @@
-import { LayoutDashboard, BookOpen, CheckSquare, MessageSquare, Calendar, BarChart3, Settings, LogOut, Target, Users, DollarSign, Activity, User, Bell, Zap, FileText } from 'lucide-react'
+import { LayoutDashboard, BookOpen, CheckSquare, MessageSquare, Calendar, BarChart3, Settings, LogOut, Target, Users, DollarSign, Activity, User, Bell, Zap, FileText, Terminal } from 'lucide-react'
 import logo from '../assets/logo.png'
 import { supabase } from '../lib/supabase'
 
@@ -26,6 +26,7 @@ const DashboardLayout = ({ children, navigate, activeView, session }) => {
     { name: 'Panel Pressure', id: 'panel',         icon: <Users size={20} /> },
     { name: 'Salary Dojo',    id: 'negotiation',   icon: <DollarSign size={20} /> },
     { name: 'Pattern X-Ray',  id: 'patterns',      icon: <Activity size={20} /> },
+    { name: 'System Design',  id: 'system-design', icon: <Terminal size={20} /> },
     { name: 'Settings',       id: 'settings',      icon: <Settings size={20} /> },
   ]
 

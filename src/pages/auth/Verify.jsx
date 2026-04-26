@@ -152,3 +152,4 @@ const Verify = ({ navigate }) => {
 
 export default Verify
 
+
