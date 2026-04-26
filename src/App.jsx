@@ -21,6 +21,7 @@ import InterviewLab from './pages/dashboard/InterviewLab'
 import ResumeAnalyzer from './pages/dashboard/ResumeAnalyzer'
 import Checkout from './pages/dashboard/Checkout'
 import SystemDesign from './pages/dashboard/SystemDesign'
+import JobRadar from './pages/dashboard/JobRadar'
 
 function App() {
   const [currentView, setCurrentView] = useState(() => {
@@ -77,11 +78,14 @@ function App() {
 
   const renderView = () => {
     // Auth and Landing views (Full Page)
-    if ((['landing', 'signup', 'signin', 'verify', 'profile'].includes(currentView) && currentView !== 'dashboard') || (!session && !['dashboard', 'question-bank', 'mock-interview', 'mcq-quiz', 'study-plan', 'progress', 'settings', 'job-dna', 'panel', 'negotiation', 'patterns', 'interview-lab', 'resume-analyzer'].includes(currentView))) {
+    if ((['landing', 'signup', 'signin', 'verify', 'profile'].includes(currentView) && currentView !== 'dashboard') || (!session && !['dashboard', 'question-bank', 'mock-interview', 'mcq-quiz', 'study-plan', 'progress', 'settings', 'job-dna', 'panel', 'negotiation', 'patterns', 'interview-lab', 'resume-analyzer', 'job-radar', 'system-design', 'checkout'].includes(currentView))) {
       switch (currentView) {
         case 'signup': return <SignUp navigate={navigate} />
         case 'signin': return <SignIn navigate={navigate} />
         case 'verify': return <Verify navigate={navigate} />
+        case 'system-design': return <SystemDesign navigate={setCurrentView} />
+        case 'job-radar': return <JobRadar navigate={setCurrentView} />
+        case 'checkout': return <Checkout navigate={setCurrentView} />
         case 'profile': return <Profile navigate={navigate} />
         default: return <Landing navigate={navigate} session={session} />
       }
@@ -106,6 +110,7 @@ function App() {
             case 'resume-analyzer': return <ResumeAnalyzer navigate={navigate} />
             case 'checkout':        return <Checkout navigate={navigate} />
             case 'system-design':   return <SystemDesign />
+            case 'job-radar':       return <JobRadar />
             case 'dashboard':
             default: return <Dashboard navigate={navigate} session={session} />
           }
